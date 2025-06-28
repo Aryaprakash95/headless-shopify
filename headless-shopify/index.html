@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Create Account | KAMLON</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout | KAMLON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,31 +14,26 @@
       height: 100vh;
       margin: 0;
     }
-
-    .signup-box {
+    .checkout-box {
       background: white;
       padding: 3rem;
       border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       text-align: center;
       max-width: 400px;
       width: 100%;
     }
-
-    .signup-box h1 {
+    .checkout-box h1 {
       margin-bottom: 1rem;
       font-size: 1.8rem;
-      letter-spacing: 1px;
       color: #111;
     }
-
-    .signup-box p {
+    .checkout-box p {
       font-size: 0.95rem;
       color: #666;
       margin-bottom: 2rem;
     }
-
-    .signup-box a button {
+    .checkout-box a button {
       padding: 0.75rem 2rem;
       font-size: 1rem;
       background: black;
@@ -48,11 +43,9 @@
       cursor: pointer;
       transition: background 0.3s;
     }
-
-    .signup-box a button:hover {
+    .checkout-box a button:hover {
       background: #222;
     }
-
     .note {
       margin-top: 1rem;
       font-size: 0.85rem;
@@ -61,18 +54,13 @@
   </style>
 </head>
 <body>
-
-  <div class="signup-box">
-    <h1>Create Your KAMLON Account</h1>
-    <p>Secure your shopping experience. Click below to create your account through our Shopify portal.</p>
-
-    <!-- ✅ Store name set to kamlon -->
-    <a href="https://kamlon.myshopify.com/account/register" target="_blank">
-      <button>Create Account</button>
+  <div class="checkout-box">
+    <h1>Proceed to Checkout</h1>
+    <p>Review your cart and complete your order securely.</p>
+    <a href="https://kamlon.myshopify.com/cart" target="_blank">
+      <button>Go to Cart</button>
     </a>
-
-    <div class="note">You will be redirected to our secure Shopify signup page.</div>
+    <div class="note">You’ll be redirected to your Shopify cart.</div>
   </div>
-
 </body>
 </html>
