@@ -19,7 +19,6 @@
     #result {
       margin-top: 20px;
       font-weight: bold;
-      color: green;
     }
   </style>
 </head>
@@ -32,64 +31,7 @@
 
   <p id="result"></p>
 
-  <script>
-    async function signup() {
-      const firstName = document.getElementById('firstName').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      const query = `
-        mutation customerCreate($input: CustomerCreateInput!) {
-          customerCreate(input: $input) {
-            customer {
-              id
-              email
-            }
-            customerUserErrors {
-              field
-              message
-            }
-          }
-        }
-      `;
-
-      const variables = {
-        input: {
-          firstName,
-          email,
-          password
-        }
-      };
-
-      try {
-        const response = await fetch("https://kamlon.myshopify.com/api/2024-04/graphql.json", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Shopify-Storefront-Access-Token": "ca825f17893a220cf8bbbb16c9c03e72" // Replace with your token
-          },
-          body: JSON.stringify({
-            query,
-            variables
-          })
-        });
-
-        const result = await response.json();
-        console.log("Shopify response:", result);
-
-        const errors = result?.data?.customerCreate?.customerUserErrors;
-
-        const message = errors && errors.length
-          ? `❌ ${errors[0].message}`
-          : "✅ Customer created successfully! Check your Shopify Customers Dashboard.";
-
-        document.getElementById("result").innerText = message;
-
-      } catch (error) {
-        console.error("Error during signup:", error);
-        document.getElementById("result").innerText = "❌ Something went wrong. Check the console.";
-      }
-    }
-  </script>
+  <script src="signup.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
