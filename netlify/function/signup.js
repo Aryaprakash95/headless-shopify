@@ -36,4 +36,3 @@ exports.handler = async (event) => {
     body: JSON.stringify(data)
   };
 };
-
