@@ -77,7 +77,6 @@
       const email = form.email.value.trim();
       const password = form.password.value.trim();
 
-      // GraphQL variables for safety
       const query = `
         mutation customerCreate($input: CustomerCreateInput!) {
           customerCreate(input: $input) {
@@ -107,7 +106,7 @@
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-Shopify-Storefront-Access-Token": "5c741bf9196093d352c460a1a6608d23"
+            "X-Shopify-Storefront-Access-Token": "3fe32aafd27676a1e93a9196d496ddcb"
           },
           body: JSON.stringify({ query, variables })
         });
