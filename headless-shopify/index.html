@@ -62,7 +62,13 @@
 
   <h1>Shop Our Products</h1>
   <div class="product-grid" id="product-grid"></div>
-
+  <nav>
+    <ul>
+      <li><a href="#" onclick="showProducts()">Shop</a></li>
+      <li><a href="#" onclick="showCart()">Cart</a></li>
+    </ul>
+  </nav>
+  
   <script>
     const shop = "kamlon.myshopify.com"; // ✅ Your Shopify store domain
     const token = "5c741bf9196093d352c460a1a6608d23"; // ✅ Your Storefront Access Token
@@ -117,6 +123,16 @@
       });
     })
     .catch(err => console.error("Shopify API error:", err));
+
+
+
+    function showProducts() {
+  fetchShopifyProducts(); // Your existing product fetch function
+}
+function showCart() {
+  window.location.href = "https://kamlon.myshopify.com/cart";
+}
+
   </script>
 
 </body>
