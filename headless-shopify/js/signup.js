@@ -3,7 +3,7 @@ async function signup() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
   
-    const res = await fetch('/.netlify/function/signup', {
+    const res = await fetch('/.netlify/functions/signup.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ firstName, email, password })
