@@ -1,143 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>KAMLON Products</title>
+  <meta charset="UTF-8" />
+  <title>Create Account | KAMLON</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <style>
     body {
-      font-family: sans-serif;
-      padding: 2rem;
-      background: #fafafa;
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
 
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-
-    .product-card {
+    .signup-box {
       background: white;
+      padding: 3rem;
       border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: 0.3s;
-    }
-
-    .product-card:hover {
-      transform: scale(1.02);
-    }
-
-    .product-card img {
-      width: 100%;
-      height: auto;
-    }
-
-    .product-info {
-      padding: 1rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
       text-align: center;
+      max-width: 400px;
+      width: 100%;
     }
 
-    .product-info h3 {
-      font-size: 1.1rem;
-      margin: 0.5rem 0;
+    .signup-box h1 {
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      color: #111;
     }
 
-    .buy-button {
+    .signup-box p {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .signup-box a button {
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
       background: black;
       color: white;
-      padding: 0.5rem 1.2rem;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      margin-top: 0.5rem;
+      transition: background 0.3s;
     }
 
-    .buy-button:hover {
+    .signup-box a button:hover {
       background: #222;
+    }
+
+    .note {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: gray;
     }
   </style>
 </head>
 <body>
 
-  <h1>Shop Our Products</h1>
-  <div class="product-grid" id="product-grid"></div>
-  <nav>
-    <ul>
-      <li><a href="#" onclick="showProducts()">Shop</a></li>
-      <li><a href="#" onclick="showCart()">Cart</a></li>
-    </ul>
-  </nav>
-  <a href="https://kamlon.myshopify.com/account/register" target="_blank">
-    Sign Up
-  </a>
-  
-  
-  <script>
-    const shop = "kamlon.myshopify.com"; // ✅ Your Shopify store domain
-    const token = "5c741bf9196093d352c460a1a6608d23"; // ✅ Your Storefront Access Token
+  <div class="signup-box">
+    <h1>Create Your KAMLON Account</h1>
+    <p>Secure your shopping experience. Click below to create your account through our Shopify portal.</p>
 
-    fetch(`https://${shop}/api/2024-04/graphql.json`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Storefront-Access-Token": token
-      },
-      body: JSON.stringify({
-        query: `
-          {
-            products(first: 8) {
-              edges {
-                node {
-                  title
-                  handle
-                  images(first: 1) {
-                    edges {
-                      node {
-                        url
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        `
-      })
-    })
-    .then(res => res.json())
-    .then(data => {
-      const products = data.data.products.edges;
-      const grid = document.getElementById("product-grid");
+    <!-- ✅ Store name set to kamlon -->
+    <a href="https://kamlon.myshopify.com/account/register" target="_blank">
+      <button>Create Account</button>
+    </a>
 
-      products.forEach(({ node }) => {
-        const img = node.images.edges[0]?.node?.url || '';
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
-          <img src="${img}" alt="${node.title}">
-          <div class="product-info">
-            <h3>${node.title}</h3>
-            <a href="https://${shop}/products/${node.handle}" target="_blank">
-              <button class="buy-button">Buy Now</button>
-            </a>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    })
-    .catch(err => console.error("Shopify API error:", err));
-
-
-
-    function showProducts() {
-  fetchShopifyProducts(); // Your existing product fetch function
-}
-function showCart() {
-  window.location.href = "https://kamlon.myshopify.com/cart";
-}
-
-  </script>
+    <div class="note">You will be redirected to our secure Shopify signup page.</div>
+  </div>
 
 </body>
 </html>
