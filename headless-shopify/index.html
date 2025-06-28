@@ -1,66 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Checkout | KAMLON</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>KAMLON - Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f3f3f3;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .checkout-box {
-      background: white;
-      padding: 3rem;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      text-align: center;
       max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f4f4f4;
+      border-radius: 10px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input, button {
       width: 100%;
-    }
-    .checkout-box h1 {
-      margin-bottom: 1rem;
-      font-size: 1.8rem;
-      color: #111;
-    }
-    .checkout-box p {
-      font-size: 0.95rem;
-      color: #666;
-      margin-bottom: 2rem;
-    }
-    .checkout-box a button {
-      padding: 0.75rem 2rem;
-      font-size: 1rem;
-      background: black;
-      color: white;
-      border: none;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
       border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #000;
+      color: white;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: 0.3s;
     }
-    .checkout-box a button:hover {
-      background: #222;
+
+    button:hover {
+      background-color: #444;
     }
-    .note {
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      color: gray;
+
+    #result {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="checkout-box">
-    <h1>Proceed to Checkout</h1>
-    <p>Review your cart and complete your order securely.</p>
-    <a href="https://kamlon.myshopify.com/cart" target="_blank">
-      <button>Go to Cart</button>
-    </a>
-    <div class="note">You’ll be redirected to your Shopify cart.</div>
-  </div>
+
+  <h2>Create Your Account</h2>
+  <form id="signup-form">
+    <input type="text" name="firstName" placeholder="First Name" required />
+    <input type="text" name="lastName" placeholder="Last Name" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById("signup-form");
+    const resultBox = document.getElementById("result");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const firstName = form.firstName.value.trim();
+      const lastName = form.lastName.value.trim();
+      const email = form.email.value.trim();
+      const password = form.password.value.trim();
+
+      const query = `
+        mutation {
+          customerCreate(input: {
+            firstName: "${firstName}",
+            lastName: "${lastName}",
+            email: "${email}",
+            password: "${password}"
+          }) {
+            customer {
+              id
+              email
+            }
+            userErrors {
+              field
+              message
+            }
+          }
+        }
+      `;
+
+      const response = await fetch("https://kamlon.myshopify.com/api/2024-04/graphql.json", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token": "your_storefront_access_token"
+        },
+        body: JSON.stringify({ query })
+      });
+
+      const result = await response.json();
+      const data = result.data.customerCreate;
+
+      if (data.userErrors.length > 0) {
+        resultBox.innerText = `❌ Error: ${data.userErrors[0].message}`;
+        resultBox.style.color = 'red';
+      } else {
+        resultBox.innerText = `✅ Success! Account created for ${data.customer.email}`;
+        resultBox.style.color = 'green';
+        form.reset();
+      }
+    });
+  </script>
 </body>
 </html>
