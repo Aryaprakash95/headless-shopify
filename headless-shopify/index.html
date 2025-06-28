@@ -1,47 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>KAMLON - Sign Up</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>KAMLON - Create Account</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 400px;
-      margin: 50px auto;
-      padding: 20px;
       background: #f4f4f4;
-      border-radius: 10px;
+      padding: 40px;
+      max-width: 400px;
+      margin: auto;
     }
 
     h2 {
       text-align: center;
     }
 
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
     input, button {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
+      border-radius: 6px;
       border: 1px solid #ccc;
-      border-radius: 8px;
       font-size: 16px;
     }
 
     button {
-      background-color: #000;
+      background-color: black;
       color: white;
+      font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
     }
 
     button:hover {
-      background-color: #444;
+      background-color: #333;
     }
 
     #result {
-      margin-top: 10px;
-      font-weight: bold;
+      margin-top: 15px;
       text-align: center;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -94,7 +101,7 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Shopify-Storefront-Access-Token": "your_storefront_access_token"
+          "X-Shopify-Storefront-Access-Token": "5c741bf9196093d352c460a1a6608d23"
         },
         body: JSON.stringify({ query })
       });
@@ -103,15 +110,14 @@
       const data = result.data.customerCreate;
 
       if (data.userErrors.length > 0) {
-        resultBox.innerText = `❌ Error: ${data.userErrors[0].message}`;
-        resultBox.style.color = 'red';
+        resultBox.innerText = `❌ ${data.userErrors[0].message}`;
+        resultBox.style.color = "red";
       } else {
-        resultBox.innerText = `✅ Success! Account created for ${data.customer.email}`;
-        resultBox.style.color = 'green';
+        resultBox.innerText = `✅ Account created for ${data.customer.email}`;
+        resultBox.style.color = "green";
         form.reset();
       }
     });
   </script>
 </body>
-
 </html>
